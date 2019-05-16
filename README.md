@@ -4,6 +4,9 @@ Scripts for the User Activity Monitoring plugin
 ## User guide
 Detailed activity reports can be generated across multiple masters using the following scripts:
 
+* [install-user-activity-monitoring-plugin.sh](./install-user-activity-monitoring-plugin.sh)
+    * Install the [user-activity-monitoring-plugin](https://go.cloudbees.com/docs/plugins/user-activity-monitoring/) or upgrade it on all the masters. Note that the masters are restarted after the install/upgrade.
+    * (!) Script automatically restarts each master after installing/upgrading the user-activity-monitoring-plugin even if the plugin was already at the last version.
 * [get-user-activity-monitoring-reports.sh](./get-user-activity-monitoring-reports.sh)
     * gather the list of available masters on this CloudBees Core Operations Center instance
     * generate the reports for each master and put them in JSON files (in `/out/reports`)
