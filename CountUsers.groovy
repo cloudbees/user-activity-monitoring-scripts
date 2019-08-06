@@ -22,16 +22,16 @@ Map buildSummary(File reportFile, Date from) {
 
     def report = new JsonSlurper().parseText(reportFile.text)
 
-    def authAccess = report.authAccess.findAll { dateFormat.parse(it.firstDayOfWeek).after(from) }
-    def authAccessFrom = authAccess*.firstDayOfWeek.min() ?: dateFormat.format(from)
-    def authAccessTo = authAccess*.firstDayOfWeek.max() ?: dateFormat.format(new Date())
+    def authAccess = report.authAccess.findAll { dateFormat.parse(it.firstDayOfMonth).after(from) }
+    def authAccessFrom = authAccess*.firstDayOfMonth.min() ?: dateFormat.format(from)
+    def authAccessTo = authAccess*.firstDayOfMonth.max() ?: dateFormat.format(new Date())
     def authAccessUsers = authAccess*.name.unique()
 
     println "${authAccessUsers.size()} user(s) counted as Authenticated from ${authAccessFrom} to ${authAccessTo}"
 
-    def scmAccess = report.scmAccess.findAll { dateFormat.parse(it.firstDayOfWeek).after(from) }
-    def scmAccessFrom = scmAccess*.firstDayOfWeek.min() ?: dateFormat.format(from)
-    def scmAccessTo = scmAccess*.firstDayOfWeek.max() ?: dateFormat.format(new Date())
+    def scmAccess = report.scmAccess.findAll { dateFormat.parse(it.firstDayOfMonth).after(from) }
+    def scmAccessFrom = scmAccess*.firstDayOfMonth.min() ?: dateFormat.format(from)
+    def scmAccessTo = scmAccess*.firstDayOfMonth.max() ?: dateFormat.format(new Date())
     def scmAccessUsers = scmAccess*.name.unique()
 
     println "${scmAccessUsers.size()} user(s) counted as SCM contributor from ${scmAccessFrom} to ${scmAccessTo}"

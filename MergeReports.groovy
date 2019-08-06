@@ -25,16 +25,16 @@ Map buildReport(File reportsFolder) {
 
     rawData.forEach { reportEntry ->
         reportEntry.authAccess.each { stat ->
-            authAccess << ["server": reportEntry.server, "firstDayOfWeek": stat.firstDayOfWeek, "name": stat.name]
+            authAccess << ["server": reportEntry.server, "firstDayOfMonth": stat.firstDayOfMonth, "name": stat.name]
         }
         reportEntry.scmAccess.each { stat ->
-            scmAccess << ["server": reportEntry.server, "firstDayOfWeek": stat.firstDayOfWeek, "name": stat.name]
+            scmAccess << ["server": reportEntry.server, "firstDayOfMonth": stat.firstDayOfMonth, "name": stat.name]
         }
     }
 
     return [
-            "authAccess": authAccess.toSorted(new OrderBy([{ it.firstDayOfWeek }, { it.name }, { it.server.url }])),
-            "scmAccess" : scmAccess.toSorted(new OrderBy([{ it.firstDayOfWeek }, { it.name }, { it.server.url }]))]
+            "authAccess": authAccess.toSorted(new OrderBy([{ it.firstDayOfMonth }, { it.name }, { it.server.url }])),
+            "scmAccess" : scmAccess.toSorted(new OrderBy([{ it.firstDayOfMonth }, { it.name }, { it.server.url }]))]
 }
 
 String getRelativePath(File base, File path) {
