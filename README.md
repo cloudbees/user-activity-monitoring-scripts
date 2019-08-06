@@ -27,10 +27,11 @@ Detailed activity reports can be generated across multiple masters using the fol
 * [count-user-activity.sh](./count-user-activity.sh)
     * displays on the stdout the summary of the users counted from `/out/aggregated-user-activity.json`:
     ```
-    1 user(s) counted as Authenticated from 2018-10-01 to 2019-02-01
-    3 user(s) counted as SCM contributor from 2018-10-01 to 2018-12-01
-    4 user(s) counted as CloudBees Core users from 2018-10-01 to 2019-02-01
-    Detailed summary available in: ./aggregated-user-activity-summary.json
+    Counting users ...
+    1 user(s) counted as Authenticated from 2019-08-01 to 2019-08-01
+    1 user(s) counted as SCM contributor from 2019-08-01 to 2019-08-01
+    2 user(s) counted as CloudBees Core users from 2019-08-01 to 2019-08-01
+    Detailed summary available in: out/aggregated-user-activity-summary.json
     ```
     * Generates a file `/out/aggregated-user-activity-summary.json` with such content:
     ```
