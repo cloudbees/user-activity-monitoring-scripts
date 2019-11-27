@@ -31,8 +31,11 @@ else
 	wget -q -O "${JENKINS_CLI_JAR}" "${OPS_CENTER_URL}/jnlpJars/jenkins-cli.jar"
 fi
 
+# otherwise space is going to be used as line separator
+IFS=$'\n'
+
 echo -n "Collecting list of masters..."
-masters=( $(java -jar "${JENKINS_CLI_JAR}" -s "${OPS_CENTER_URL}" list-masters | IFS='\n' jq -cr '.data.masters[] | select(.status == "ONLINE")') )
+masters=( $(java -jar "${JENKINS_CLI_JAR}" -s "${OPS_CENTER_URL}" list-masters | jq -cr '.data.masters[] | select(.status == "ONLINE")') )
 echo " done"
 
 mkdir -p "${HERE}/out/reports"
