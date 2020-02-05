@@ -35,7 +35,7 @@ fi
 IFS=$'\n'
 
 echo -n "Collecting list of masters..."
-masters=( $(java -jar "${JENKINS_CLI_JAR}" -s "${OPS_CENTER_URL}" list-masters | jq -cr '.data.masters[] | select(.status == "ONLINE")') )
+masters=( $(java -jar "${JENKINS_CLI_JAR}" -s "${OPS_CENTER_URL}" -auth "${JENKINS_USER_ID}":"${JENKINS_API_TOKEN}" list-masters | jq -cr '.data.masters[] | select(.status == "ONLINE")') )
 echo " done"
 
 mkdir -p "${HERE}/out/reports"
@@ -47,5 +47,5 @@ for master in "${masters[@]}"; do
 	masterName=$(echo "${master}" | jq -r '.fullName')
 	masterUrl=$(echo "${master}" | jq -r '.url')
 	echo -en " * ${masterName}: "
-	java -jar "${JENKINS_CLI_JAR}" -s "${masterUrl}" user-activity-report > "${HERE}/out/reports/USER-ACTIVITY-MONITORING-${masterName/\//_}-$(date '+%Y%m%d-%H%M%S').json" 2> "${HERE}/out/logs/USER-ACTIVITY-MONITORING-${masterName/\//_}-$(date '+%Y%m%d-%H%M%S')-error.log" && echo "done" || echo "ko"
+	java -jar "${JENKINS_CLI_JAR}" -s "${masterUrl}" -auth "${JENKINS_USER_ID}":"${JENKINS_API_TOKEN}" user-activity-report > "${HERE}/out/reports/USER-ACTIVITY-MONITORING-${masterName/\//_}-$(date '+%Y%m%d-%H%M%S').json" 2> "${HERE}/out/logs/USER-ACTIVITY-MONITORING-${masterName/\//_}-$(date '+%Y%m%d-%H%M%S')-error.log" && echo "done" || echo "ko"
 done

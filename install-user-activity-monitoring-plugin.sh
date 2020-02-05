@@ -37,7 +37,7 @@ mkdir -p "${HERE}/reports/"
 IFS=$'\n'
 
 echo -n "Collecting list of masters..."
-masters=( $(java -jar "${JENKINS_CLI_JAR}" -s "${OPS_CENTER_URL}" list-masters | jq -cr '.data.masters[] | select(.status == "ONLINE")') )
+masters=( $(java -jar "${JENKINS_CLI_JAR}" -s "${OPS_CENTER_URL}" -auth "${JENKINS_USER_ID}":"${JENKINS_API_TOKEN}" list-masters | jq -cr '.data.masters[] | select(.status == "ONLINE")') )
 echo " done"
 
 echo "Install plugin on masters..."
@@ -45,5 +45,5 @@ for master in "${masters[@]}"; do
 	masterName=$(echo "${master}" | jq -r '.fullName')
 	masterUrl=$(echo "${master}" | jq -r '.url')
 	echo -en " * ${masterName}: "
-	java -jar "${JENKINS_CLI_JAR}" -s "${masterUrl}" install-plugin user-activity-monitoring -deploy -restart > /dev/null 2> "${HERE}/reports/install-plugin-${masterName/\//_}-$(date '+%Y%m%d-%H%M%S')-error.log" && echo "done" || echo "ko"
+	java -jar "${JENKINS_CLI_JAR}" -s "${masterUrl}" -auth "${JENKINS_USER_ID}":"${JENKINS_API_TOKEN}" install-plugin user-activity-monitoring -deploy -restart > /dev/null 2> "${HERE}/reports/install-plugin-${masterName/\//_}-$(date '+%Y%m%d-%H%M%S')-error.log" && echo "done" || echo "ko"
 done
