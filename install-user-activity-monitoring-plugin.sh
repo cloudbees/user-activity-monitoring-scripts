@@ -21,6 +21,9 @@ if [[ -z "$JENKINS_API_TOKEN" ]]; then
     exit 1
 fi
 
+export JENKINS_USER_ID
+export JENKINS_API_TOKEN
+
 # INSTALL JENKINS CLI
 mkdir -p "${HERE}/.jenkins"
 JENKINS_CLI_JAR="${HERE}/.jenkins/jenkins-cli.jar"
