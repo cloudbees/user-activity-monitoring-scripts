@@ -1,3 +1,7 @@
+:warning: **The scripts in this repository are no longer needed as of [User Activity Monitoring plugin version 1.3](https://docs.cloudbees.com/docs/release-notes/latest/plugins/user-activity-monitoring-plugin/1.3).**
+
+Documentation for the current version of the plugin is available [here](https://docs.cloudbees.com/docs/admin-resources/latest/plugins/user-activity-monitoring).
+
 # user-activity-monitoring-scripts
 Scripts for the User Activity Monitoring plugin
 
